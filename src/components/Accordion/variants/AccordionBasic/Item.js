@@ -2,7 +2,7 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RichTextElement } from '@kentico/gatsby-kontent-components'
 
-const AccordionItem = ({ item, index, isActive, setIsActive, id }) => {
+const AccordionItem = ({ item, index, isActive, setIsActive, accordianId }) => {
   const {
     title: { value: title },
     description: { value: body },
@@ -26,6 +26,7 @@ const AccordionItem = ({ item, index, isActive, setIsActive, id }) => {
       opacity: 1,
     },
   }
+  console.log(accordianId)
 
   return (
     <div
@@ -34,7 +35,7 @@ const AccordionItem = ({ item, index, isActive, setIsActive, id }) => {
           ? 'accordionBasic__item accordionBasic__item--active'
           : 'accordionBasic__item'
       }
-      data-kontent-item-id={id}
+      data-kontent-item-id={accordianId}
       data-kontent-element-codename="accordion_items"
       data-kontent-add-button
       data-kontent-add-button-render-position="right"
