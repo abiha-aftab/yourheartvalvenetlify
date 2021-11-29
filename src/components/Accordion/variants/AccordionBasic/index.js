@@ -9,7 +9,12 @@ const AccordionBasic = ({ data = null }) => {
   } = data[0].elements
   const { id } = data[0].system
   return (
-    <div className="accordionBasic">
+    <div className="accordionBasic" 
+      data-kontent-item-id={accordianId}
+      data-kontent-element-codename="accordion_items"
+      data-kontent-add-button
+      data-kontent-add-button-render-position="right"
+      data-kontent-add-button-insert-position="after">
       {accordion_items.map((item, index) => {
         return (
           <AccordionItem
