@@ -7,7 +7,7 @@ const AccordionItem = ({ item, index, isActive, setIsActive, accordianId }) => {
     title: { value: title },
     description: { value: body },
   } = item.elements
-  const { codename } = item.system
+  const { id, codename } = item.system
   const toggleActiveTab = (index) => {
     if (isActive === index) {
       setIsActive(null)
@@ -45,6 +45,7 @@ const AccordionItem = ({ item, index, isActive, setIsActive, accordianId }) => {
         className="accordionBasic__button"
         onClick={() => toggleActiveTab(index)}
         aria-expanded={isActive === index ? 'true' : 'false'}
+        data-kontent-item-id={id}
         data-kontent-element-codename={codename}
       >
         {title}
@@ -62,6 +63,7 @@ const AccordionItem = ({ item, index, isActive, setIsActive, accordianId }) => {
           >
             <div
               className="accordionBasic__content"
+              data-kontent-item-id={id}
               data-kontent-element-codename={codename}
             >
               <RichTextElement value={body} />
