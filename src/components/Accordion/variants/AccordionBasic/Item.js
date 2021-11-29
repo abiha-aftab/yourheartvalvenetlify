@@ -2,12 +2,12 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RichTextElement } from '@kentico/gatsby-kontent-components'
 
-const AccordionItem = ({ item, index, isActive, setIsActive }) => {
+const AccordionItem = ({ item, index, isActive, setIsActive, id }) => {
   const {
     title: { value: title },
     description: { value: body },
   } = item.elements
-  const { id, codename } = item.system
+  const { codename } = item.system
   const toggleActiveTab = (index) => {
     if (isActive === index) {
       setIsActive(null)
@@ -35,6 +35,10 @@ const AccordionItem = ({ item, index, isActive, setIsActive }) => {
           : 'accordionBasic__item'
       }
       data-kontent-item-id={id}
+      data-kontent-element-codename="accordion_items"
+      data-kontent-add-button
+      data-kontent-add-button-render-position="right"
+      data-kontent-add-button-insert-position="after"
     >
       <button
         className="accordionBasic__button"

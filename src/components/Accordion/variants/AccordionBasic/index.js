@@ -7,6 +7,7 @@ const AccordionBasic = ({ data = null }) => {
   const {
     accordion_items: { value: accordion_items },
   } = data[0].elements
+  const { id } = data[0].system
   return (
     <div className="accordionBasic">
       {accordion_items.map((item, index) => {
@@ -17,6 +18,7 @@ const AccordionBasic = ({ data = null }) => {
             index={index}
             isActive={isActive}
             setIsActive={setIsActive}
+            accordianId={id}
           />
         )
       })}
