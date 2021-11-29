@@ -31,7 +31,7 @@ const ContentsPageTemplate = ({
             }
           />
         )}
-        <div>
+        </div>
       {marketo_form.length > 0 && <FormBasic id="1277" />}
     </div>
   )
