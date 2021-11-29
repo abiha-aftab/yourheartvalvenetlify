@@ -13,7 +13,7 @@ const AccordionBasic = ({ data = null }) => {
       data-kontent-item-id={id}
       data-kontent-element-codename="accordion"
       data-kontent-add-button
-      data-kontent-add-button-render-position="right"
+      data-kontent-add-button-render-position="bottom"
       data-kontent-add-button-insert-position="after">
       {accordion_items.map((item, index) => {
         return (
