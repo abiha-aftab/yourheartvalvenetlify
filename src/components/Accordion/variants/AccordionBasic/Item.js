@@ -36,7 +36,7 @@ const AccordionItem = ({ item, index, isActive, setIsActive, accordianId }) => {
           : 'accordionBasic__item'
       }
       data-kontent-item-id={accordianId}
-      data-kontent-element-codename="accordion_items"
+      data-kontent-element-codename="accordions"
       data-kontent-add-button
       data-kontent-add-button-render-position="right"
       data-kontent-add-button-insert-position="after"
