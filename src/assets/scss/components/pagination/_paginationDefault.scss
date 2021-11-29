@@ -1,0 +1,30 @@
+.paginationDefault {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  &__item {
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    a {
+      color: $color-crimson;
+      &:hover {
+        color: $color-blue;
+        text-decoration: underline;
+      }
+    }
+    svg {
+      margin: 0 0.4rem;
+      fill: $color-grey-2;
+    }
+  }
+  &__item:last-child {
+    a {
+      color: $color-slate;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    position: relative;
+  }
+}
