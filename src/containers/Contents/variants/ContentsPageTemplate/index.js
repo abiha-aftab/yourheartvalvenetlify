@@ -18,8 +18,9 @@ const ContentsPageTemplate = ({
       <div className="contentPage" data-kontent-element-codename={itemCodename}>
         <RichTextElement value={body.value} />
       </div>
+    <div data-kontent-element-codename="accordions">
       {accordions.length > 0 && <AccordionBasic data={accordions} />}
-      <div data-kontent-element-codename="accordions">
+     </div>
       {modal.length > 0 &&
         (path.indexOf('heart-basics/') !== -1 ||
           path.indexOf('treatment-options/') !== -1) && (
@@ -31,7 +32,6 @@ const ContentsPageTemplate = ({
             }
           />
         )}
-        </div>
       {marketo_form.length > 0 && <FormBasic id="1277" />}
     </div>
   )
