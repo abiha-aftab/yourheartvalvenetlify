@@ -32,8 +32,9 @@ let useClickOutside = (handler) => {
 
 const Modal = ({ modalData, trigger }) => {
   const { elements } = modalData[0]
+  const { id, codename } = modalData[0].system
   const { body } = elements
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false)
   //disable the scroll when modal is open
   useDisableBodyScroll(showModal)
 
@@ -53,11 +54,12 @@ const Modal = ({ modalData, trigger }) => {
     return () => window.removeEventListener('keydown', close)
   })
   return (
-    <>
+    <div data-kontent-item-id={id}>
       <button
         className="btn btn-blue"
         onClick={() => setShowModal(true)}
         tabIndex={0}
+        data-kontent-element-codename={codename}
       >
         {trigger}
       </button>
@@ -70,10 +72,20 @@ const Modal = ({ modalData, trigger }) => {
             animate="visible"
             exit="hidden"
           >
-            <motion.div className="modal" variants={modalVariants} aria-modal="true" role="dialog">
+            <motion.div
+              className="modal"
+              variants={modalVariants}
+              aria-modal="true"
+              role="dialog"
+            >
               <div className="modal__content" ref={domNode}>
                 <div className="modal__header">
-                  <h3 className="modal__title">{elements.title.value}</h3>
+                  <h3
+                    className="modal__title"
+                    data-kontent-element-codename={codename}
+                  >
+                    {elements.title.value}
+                  </h3>
                   <button
                     className="modal__close"
                     data-dismiss="modal"
@@ -84,7 +96,10 @@ const Modal = ({ modalData, trigger }) => {
                   </button>
                 </div>
 
-                <div className="modal__body">
+                <div
+                  className="modal__body"
+                  data-kontent-element-codename={codename}
+                >
                   <RichTextElement value={body.value} />
                 </div>
                 <div className="modal__footer">
@@ -102,7 +117,7 @@ const Modal = ({ modalData, trigger }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   )
 }
 
