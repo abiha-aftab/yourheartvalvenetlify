@@ -14,8 +14,8 @@ const ContentsPageTemplate = ({
   itemCodename,
 }) => {
   return (
-    <div >
-      <div className="contentPage" data-kontent-element-codename={itemCodename} data-kontent-item-id={itemId}>
+    <div data-kontent-item-id={itemId}>
+      <div className="contentPage" data-kontent-element-codename={itemCodename}>
         <RichTextElement value={body.value} />
       </div>
       {accordions.length > 0 && <AccordionBasic data={accordions} />}
