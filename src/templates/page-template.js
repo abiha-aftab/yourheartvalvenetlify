@@ -8,17 +8,17 @@ import { prepareSidebarLinks } from '../utils/prepareSidebarLinks'
 import Dropdown from '../components/Dropdown/variants/DropdownDefault'
 
 export default function PageTemplate({ pageContext: { pageID, item }, data }) {
-
   const path = item.url.replace(/^\/+|\/+$/g, '')
   const {
     body,
     image,
-    aside_menu: {value: menu},
-    accordions: {value: accordions},
-    modal: {value: modal},
-    marketo_form: {value: marketo_form},
-    dropdown: {value: dropdown}
+    aside_menu: { value: menu },
+    accordions: { value: accordions },
+    modal: { value: modal },
+    marketo_form: { value: marketo_form },
+    dropdown: { value: dropdown },
   } = data.page.elements
+  const { id, codename } = data.page.system
   const sidebarLinks = prepareSidebarLinks(menu)
 
   return (
@@ -29,20 +29,27 @@ export default function PageTemplate({ pageContext: { pageID, item }, data }) {
           <h2 className="text-crimson">{item.category}</h2>
           <PaginationDefault path={path} />
           <div className="grid-1 grid-md-12 mt-2 gap-1 gap-md-2">
-            {sidebarLinks &&
+            {sidebarLinks && (
               <div className="col-md-4">
                 <SidebarDefault sidebarLinks={sidebarLinks} />
               </div>
-            }
-            <div className={sidebarLinks ? "col-md-8" : "col-md-12"}>
+            )}
+            <div className={sidebarLinks ? 'col-md-8' : 'col-md-12'}>
               <ContentsPageTemplate
                 path={path}
                 body={body}
                 accordions={accordions}
                 modal={modal}
                 marketo_form={marketo_form}
+                itemId={id}
+                itemCodename={codename}
               />
-              {dropdown.length > 0 && <Dropdown dropdown={dropdown[0]} categorySlug={item.categorySlug} /> }
+              {dropdown.length > 0 && (
+                <Dropdown
+                  dropdown={dropdown[0]}
+                  categorySlug={item.categorySlug}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -53,9 +60,7 @@ export default function PageTemplate({ pageContext: { pageID, item }, data }) {
 
 export const pageQuery = graphql`
   query PageQuery($pageID: String) {
-    page: kontentItemPageTemplate(
-      system: {id: {eq: $pageID}}
-    ) {
+    page: kontentItemPageTemplate(system: { id: { eq: $pageID } }) {
       system {
         id
         codename
