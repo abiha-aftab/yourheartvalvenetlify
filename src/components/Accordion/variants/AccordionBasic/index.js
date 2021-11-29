@@ -11,7 +11,7 @@ const AccordionBasic = ({ data = null }) => {
   return (
     <div className="accordionBasic" 
       data-kontent-item-id={id}
-      data-kontent-element-codename="accordion_items"
+      data-kontent-element-codename="accordions"
       data-kontent-add-button
       data-kontent-add-button-render-position="bottom"
       data-kontent-add-button-insert-position="after">
