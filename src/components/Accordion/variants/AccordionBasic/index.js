@@ -10,7 +10,7 @@ const AccordionBasic = ({ data = null }) => {
   const { id } = data[0].system
   return (
     <div className="accordionBasic" 
-      data-kontent-item-id={accordianId}
+      data-kontent-item-id={id}
       data-kontent-element-codename="accordion_items"
       data-kontent-add-button
       data-kontent-add-button-render-position="right"
