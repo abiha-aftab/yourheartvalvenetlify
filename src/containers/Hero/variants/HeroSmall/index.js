@@ -2,7 +2,7 @@ import React from 'react'
 import { ImageElement } from '@kentico/gatsby-kontent-components'
 import { StaticImage } from 'gatsby-plugin-image'
 
-const HeroSmall = ({ image }, itemId, itemCodename) => {
+const HeroSmall = ({ image, itemId, itemCodename }) => {
   let hero = ''
   if (image) {
     const {
