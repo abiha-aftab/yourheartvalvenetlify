@@ -30,7 +30,13 @@ export default function PageTemplate({ pageContext: { pageID, item }, data }) {
       />
       <section className="section">
         <div className="container">
-          <h2 className="text-crimson">{item.category}</h2>
+          <h2
+            className="text-crimson"
+            data-kontent-item-id={id}
+            data-kontent-element-codename={codename}
+          >
+            {item.category}
+          </h2>
           <PaginationDefault path={path} />
           <div className="grid-1 grid-md-12 mt-2 gap-1 gap-md-2">
             {sidebarLinks && (
