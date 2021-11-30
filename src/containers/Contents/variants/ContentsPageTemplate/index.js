@@ -15,26 +15,28 @@ const ContentsPageTemplate = ({
 }) => {
   return (
     <>
-    <div data-kontent-item-id={itemId}>
-      <div className="contentPage" data-kontent-element-codename={itemCodename}>
-        <RichTextElement value={body.value} />
+      <div data-kontent-item-id={itemId}>
+        <div
+          className="contentPage"
+          data-kontent-element-codename={itemCodename}
+        >
+          <RichTextElement value={body.value} />
+        </div>
+        {accordions.length > 0 && <AccordionBasic data={accordions} />}
+        {modal.length > 0 &&
+          (path.indexOf('heart-basics/') !== -1 ||
+            path.indexOf('treatment-options/') !== -1) && (
+            <Modal
+              modalData={modal}
+              trigger={
+                modal[0].elements.toggle_text.value ||
+                'This information is not a substitute for talking with your doctor.'
+              }
+            />
+          )}
+        {marketo_form.length > 0 && <FormBasic id="1277" />}
       </div>
-      {accordions.length > 0 && <AccordionBasic data={accordions} />}
-      {modal.length > 0 &&
-        (path.indexOf('heart-basics/') !== -1 ||
-          path.indexOf('treatment-options/') !== -1) && (
-          <Modal
-            modalData={modal}
-            trigger={
-              modal[0].elements.toggle_text.value ||
-              'This information is not a substitute for talking with your doctor.'
-            }
-          />
-        )}
-      {marketo_form.length > 0 && <FormBasic id="1277" />}
-    </div>
-       
-      </>
+    </>
   )
 }
 
