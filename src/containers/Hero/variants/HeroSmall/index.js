@@ -4,6 +4,12 @@ import { StaticImage } from 'gatsby-plugin-image'
 
 const HeroSmall = ({ image }) => {
   let hero = ''
+  let id, codename
+
+  if (image) {
+    id = image.system.id
+    codename = image.system.codename
+  }
   if (image) {
     const {
       alt: { value: image_alt },
@@ -11,7 +17,6 @@ const HeroSmall = ({ image }) => {
         value: [image_asset],
       },
     } = image.elements
-    const { id, codename } = image.system
     hero = (
       <ImageElement
         image={image_asset}
