@@ -2,7 +2,7 @@ import React from 'react'
 import { ImageElement } from '@kentico/gatsby-kontent-components'
 import { StaticImage } from 'gatsby-plugin-image'
 
-const HeroSmall = ({ image, itemId, itemCodename }) => {
+const HeroSmall = ({ image }) => {
   let hero = ''
   if (image) {
     const {
@@ -11,6 +11,7 @@ const HeroSmall = ({ image, itemId, itemCodename }) => {
         value: [image_asset],
       },
     } = image.elements
+    const { id, codename } = image.system
     hero = (
       <ImageElement
         image={image_asset}
@@ -28,10 +29,7 @@ const HeroSmall = ({ image, itemId, itemCodename }) => {
     )
   }
   return (
-    <section
-      data-kontent-item-id={itemId}
-      data-kontent-element-codename={itemCodename}
-    >
+    <section data-kontent-item-id={id} data-kontent-element-codename={codename}>
       {hero}
     </section>
   )

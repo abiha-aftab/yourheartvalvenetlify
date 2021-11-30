@@ -23,11 +23,7 @@ export default function PageTemplate({ pageContext: { pageID, item }, data }) {
 
   return (
     <>
-      <HeroSmall
-        image={image.value ? image.value[0] : null}
-        itemId={id}
-        itemCodename={codename}
-      />
+      <HeroSmall image={image.value ? image.value[0] : null} />
       <section className="section">
         <div className="container">
           <h2
