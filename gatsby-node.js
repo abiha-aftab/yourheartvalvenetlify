@@ -54,7 +54,7 @@ exports.createPages = async ({ actions, graphql }) => {
       context: { pageID, item },
     })
 
-    if (1) {
+    if (process.env.NODE_ENV === 'development') {
       createPage({
         path: `/preview/${pageSlug}`, // preview URL https://<domain>/preview/page/{Lang}/{Codename}
         component: require.resolve(`./src/templates/page-template.js`),
