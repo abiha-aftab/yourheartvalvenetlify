@@ -2,12 +2,14 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 
-const PaginationDefault = ({ path }) => {
+const PaginationDefault = ({ path, languageCode = null }) => {
   let links = []
-  let incrementalPath = ''
-  links.push({ text: 'Home', url: '/' })
+  let incrementalPath = languageCode ? `/${languageCode}` : ""
+  links.push({ text: 'Home', url: languageCode ? `/${languageCode}` : "/" })
   path = path.split('/')
   path.forEach((item) => {
+    if(languageCode && item === languageCode)
+      return
     incrementalPath = `${incrementalPath}/${item}`
     links.push({
       text: item.replace(/-/g, ' ').replace('faqs', 'FAQs'),
@@ -17,7 +19,7 @@ const PaginationDefault = ({ path }) => {
 
   return (
     <ul className="paginationDefault">
-      {links.map((link, index) => {
+      {links.length > 1 && links.map((link, index) => {
         const { text, url } = link
         const counter = index + 1
         if (counter !== links.length) {

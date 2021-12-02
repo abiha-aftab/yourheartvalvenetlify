@@ -38,7 +38,7 @@ const HeroLarge = ({ data }) => {
               url: { value: url },
               aria_label: { value: aria_label },
             } = anchor.elements
-            const { codename, id } = anchor.system
+            const { id } = anchor.system
             return (
               <Link
                 to={url}

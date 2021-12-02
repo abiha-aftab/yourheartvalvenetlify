@@ -40,6 +40,7 @@ const ContentsDefault = ({ data }) => {
             const { id, codename } = anchor.system
             return (
               <Link
+                key={codename}
                 data-kontent-item-id={id}
                 data-kontent-element-codename={codename}
                 to={url}

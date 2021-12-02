@@ -6,10 +6,10 @@ import PaginationDefault from '../components/Pagination/variants/PaginationDefau
 import ContentsPageTemplate from '../containers/Contents/variants/ContentsPageTemplate'
 import { prepareSidebarLinks } from '../utils/prepareSidebarLinks'
 import Dropdown from '../components/Dropdown/variants/DropdownDefault'
+import LayoutRegional from '../components/Layout/variations/LayoutRegional'
 import SEO from '../components/SEO'
-import Layout from '../components/Layout/variations/LayoutDefault'
 
-export default function PageTemplate({ pageContext: { pageID, item }, data }) {
+export default function PageTemplateRegional({ pageContext: { languageCode, pageID, item }, data }) {
   const path = item.url.replace(/^\/+|\/+$/g, '')
   const {
     body,
@@ -19,25 +19,26 @@ export default function PageTemplate({ pageContext: { pageID, item }, data }) {
     modal: { value: modal },
     marketo_form: { value: marketo_form },
     dropdown: { value: dropdown },
-    title: { value: title },
+    title: { value: title }
   } = data.page.elements
   const { id, codename } = data.page.system
-  const sidebarLinks = prepareSidebarLinks(menu)
-
+  const sidebarLinks = prepareSidebarLinks(menu, languageCode)
   return (
-    <Layout>
+    <LayoutRegional languageCode={languageCode} header={data.header} footer={data.footer}>
       <SEO title={title} />
       <HeroSmall image={image.value ? image.value[0] : null} />
       <section className="section">
         <div className="container">
-          <h2
-            className="text-crimson"
-            data-kontent-item-id={id}
-            data-kontent-element-codename={codename}
-          >
-            {item.category}
-          </h2>
-          <PaginationDefault path={path} />
+          {item.pageSlug !== "" &&
+            <h2
+              className="text-crimson"
+              data-kontent-item-id={id}
+              data-kontent-element-codename={codename}
+            >
+              {item.category.toLowerCase() === 'regional' ? item.name : item.category}
+            </h2>
+          }
+          <PaginationDefault path={path} languageCode={languageCode} />
           <div className="grid-1 grid-md-12 mt-2 gap-1 gap-md-2">
             {sidebarLinks && (
               <div className="col-md-4">
@@ -64,12 +65,37 @@ export default function PageTemplate({ pageContext: { pageID, item }, data }) {
           </div>
         </div>
       </section>
-    </Layout>
+    </LayoutRegional>
   )
 }
 
 export const pageQuery = graphql`
-  query PageQuery($pageID: String) {
+  query RegionalPageQuery($languageCode: String, $pageID: String) {
+    header: kontentItemHeader (
+      system: {language: {eq: $languageCode}}
+    )  {
+      system {
+        id
+        codename
+      }
+      elements {
+        logo {
+          value {
+            ...image
+          }
+        }
+        menu {
+          value {
+            ...nav_home
+            ...nav_menu
+            ...nav_page
+          }
+        }
+        language_selector {
+          value
+        }
+      }
+    }
     page: kontentItemPageTemplate(system: { id: { eq: $pageID } }) {
       system {
         id
@@ -124,6 +150,24 @@ export const pageQuery = graphql`
         dropdown {
           value {
             ...dropdown
+          }
+        }
+      }
+    }
+    footer: kontentItemFooter (
+        system: {language: {eq: $languageCode}}
+      ) {
+      system {
+        id
+        codename
+      }
+      elements {
+        text {
+          value
+        }
+        menu {
+          value {
+            ...nav_menu
           }
         }
       }

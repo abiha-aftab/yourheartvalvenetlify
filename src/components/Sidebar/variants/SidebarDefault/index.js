@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { AnimatePresence } from 'framer-motion'
 
 import Dropdown from './Dropdown'
 import List from './List'
@@ -23,11 +22,11 @@ const SidebarDefault = ({ sidebarLinks = null }) => {
   return (
     <aside className="sidebarDefault">
       <Dropdown isOpen={isOpen} setIsOpen={setIsOpen} />
-      <AnimatePresence>
         {isOpen && <List sidebarLinks={sidebarLinks} />}
-      </AnimatePresence>
     </aside>
   )
 }
 
 export default SidebarDefault
+
+// Have a seperate desktop and mobile component pass data into both.

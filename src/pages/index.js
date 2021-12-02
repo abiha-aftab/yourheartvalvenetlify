@@ -3,6 +3,8 @@ import HeroLarge from '../containers/Hero/variants/HeroLarge'
 import FeaturesDefault from '../containers/Features/variants/FeaturesDefault'
 import ContentsDefault from '../containers/Contents/variants/ContentsDefault'
 import { graphql } from 'gatsby'
+import SEO from '../components/SEO'
+import Layout from '../components/Layout/variations/LayoutDefault'
 
 export default function Home({ data }) {
   const {
@@ -20,11 +22,12 @@ export default function Home({ data }) {
     },
   } = sections
   return (
-    <>
+    <Layout>
+      <SEO title="Home" />
       <HeroLarge data={pageBanner} />
       <FeaturesDefault data={patientInformation} />
       <ContentsDefault data={heartAnatomy} />
-    </>
+    </Layout>
   )
 }
 

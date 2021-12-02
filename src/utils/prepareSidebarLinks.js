@@ -1,4 +1,4 @@
-export const prepareSidebarLinks = (data) => {
+export const prepareSidebarLinks = (data, languageCode) => {
   if(!data.length) return
   let sidebarLinks = []
   let links = []
@@ -8,7 +8,7 @@ export const prepareSidebarLinks = (data) => {
     if(menu.elements.menu_items) {
       const item = menu.elements.menu_items.value[0]
       links = item.elements.links.value
-      baseURL = item.elements.slug.value
+      baseURL = languageCode ? languageCode : item.elements.slug.value
       sidebarLinks.push({
         name: name,
         url: ``,
@@ -16,7 +16,7 @@ export const prepareSidebarLinks = (data) => {
       sidebarLinks = prepareLinks(baseURL, links, sidebarLinks)
     } else {
       links = menu.elements.links.value
-      baseURL = menu.elements.slug.value
+      baseURL = languageCode ? languageCode : menu.elements.slug.value
       sidebarLinks = prepareLinks(baseURL, links, sidebarLinks)
     }
   })
@@ -27,7 +27,7 @@ const prepareLinks = (baseURL, links, sidebarLinks) => {
   links.forEach(link => {
     const { title: {value: name} } = link.elements
     let slug = link.elements.url ? link.elements.url.value : link.elements.slug.value
-    let url = slug ? slug.indexOf("https") !== -1 ? slug : baseURL === slug ? `/${slug}` : `/${baseURL}/${slug}` : ""
+    let url = slug ? slug.indexOf("https") !== -1 ? slug : baseURL === slug ? `/${slug}` : `/${baseURL}/${slug.replace(/^\/+|\/+$/g, '')}` : ""
     if(baseURL === slug) return
     sidebarLinks.push({
       name: name,

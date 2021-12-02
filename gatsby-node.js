@@ -2,10 +2,13 @@ exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
   const { data } = await graphql(`
     query {
-      pages: allKontentItemPageTemplate {
+      pages: allKontentItemPageTemplate(
+        filter: { system: { language: { in: ["default", "eu"] } } }
+      ) {
         nodes {
           system {
             id
+            language
           }
           elements {
             title {
@@ -27,20 +30,27 @@ exports.createPages = async ({ actions, graphql }) => {
 
   data.pages.nodes.forEach((page) => {
     const {
-      system: { id: pageID },
+      system: { id: pageID, language },
       elements: {
         title: { value: title },
-        slug: { value: pageSlug },
-        topics: {
-          value: [{ name: category }],
-        },
+        slug: { value: slug },
       },
     } = page
-    const categorySlug = category.replace(/\s+/g, '-').toLowerCase()
+    let category = page.elements.topics.value
+    category = category.length > 0 ? category[0].name : ''
+    const pageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
+    const categorySlug = category
+      .replace(/\s+/g, '-')
+      .replace(/^\/+|\/+$/g, '')
+      .toLowerCase()
+    const regionalPath = language !== 'default' ? `/${language}` : ''
     const path =
-      categorySlug === pageSlug
-        ? `/${pageSlug}`
-        : `/${categorySlug}/${pageSlug}`
+      categorySlug === pageSlug ||
+      categorySlug === 'regional' ||
+      categorySlug === ''
+        ? `${regionalPath}/${pageSlug}`
+        : `${regionalPath}/${categorySlug}/${pageSlug}`
+
     const item = {
       url: path,
       pageSlug: pageSlug,
@@ -48,18 +58,25 @@ exports.createPages = async ({ actions, graphql }) => {
       category: category,
       categorySlug: categorySlug,
     }
+
     createPage({
       path: path,
-      component: require.resolve(`./src/templates/page-template.js`),
-      context: { pageID, item },
+      component:
+        language !== 'default'
+          ? require.resolve(`./src/templates/page-template-regional.js`)
+          : require.resolve(`./src/templates/page-template.js`),
+      context: { languageCode: language, pageID, item },
     })
 
-    if (process.env.NODE_ENV === 'development') {
-      console.log('I am in dev mode')
+    if (process.env.ENVIRONMENT === 'development') {
+      const webspotlightPath = `preview/${regionalPath}/${pageSlug}`
       createPage({
-        path: `/preview/${pageSlug}`, // preview URL https://<domain>/preview/page/{Lang}/{Codename}
-        component: require.resolve(`./src/templates/page-template.js`),
-        context: { pageID, item },
+        path: webspotlightPath,
+        component:
+          language !== 'default'
+            ? require.resolve(`./src/templates/page-template-regional.js`)
+            : require.resolve(`./src/templates/page-template.js`),
+        context: { languageCode: language, pageID, item },
       })
     }
   })
