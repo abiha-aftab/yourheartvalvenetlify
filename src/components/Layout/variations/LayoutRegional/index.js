@@ -54,7 +54,7 @@ const LayoutRegional = ({ children, languageCode, header, footer }) => {
     <div
       className="layout"
       data-kontent-project-id={process.env.GATSBY_PROJECT_ID}
-      data-kontent-language-codename="eu"
+      data-kontent-language-codename={languageCode}
     >
       <NavbarRegional
         navLogo={navLogo}
