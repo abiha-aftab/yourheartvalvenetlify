@@ -36,6 +36,7 @@ const LayoutRegional = ({ children, languageCode, header, footer }) => {
       kontentSmartLink.destroy()
     }
   })
+
   const navLogo = header.elements.logo
   const navLinks = prepareDataLinks(
     header.elements.menu.value,

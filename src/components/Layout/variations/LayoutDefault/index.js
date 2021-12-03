@@ -8,7 +8,7 @@ import KontentSmartLink from '@kentico/kontent-smart-link'
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
-    query NavigationsQuery {
+    query NavigationQuery {
       header: kontentItemHeader {
         system {
           id
@@ -70,7 +70,10 @@ const Layout = ({ children }) => {
       data-kontent-project-id={process.env.GATSBY_PROJECT_ID}
       data-kontent-language-codename={process.env.GATSBY_LANGUAGE_CODENAMES}
     >
-      <NavbarDefault navLogo={navLogo} navLinks={navLinks} />
+      <NavbarDefault
+        navLogo={navLogo}
+        navLinks={navLinks}
+      />
       {children}
       <FooterDefault footerLinks={footerLinks} footerText={footerText} />
     </div>

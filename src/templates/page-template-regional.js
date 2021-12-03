@@ -9,10 +9,7 @@ import Dropdown from '../components/Dropdown/variants/DropdownDefault'
 import LayoutRegional from '../components/Layout/variations/LayoutRegional'
 import SEO from '../components/SEO'
 
-export default function PageTemplateRegional({
-  pageContext: { languageCode, pageID, item },
-  data,
-}) {
+export default function PageTemplateRegional({ pageContext: { languageCode, pageID, item }, data }) {
   const path = item.url.replace(/^\/+|\/+$/g, '')
   const {
     body,
@@ -22,31 +19,25 @@ export default function PageTemplateRegional({
     modal: { value: modal },
     marketo_form: { value: marketo_form },
     dropdown: { value: dropdown },
-    title: { value: title },
+    title: { value: title }
   } = data.page.elements
   const { id, codename } = data.page.system
   const sidebarLinks = prepareSidebarLinks(menu, languageCode)
   return (
-    <LayoutRegional
-      languageCode={languageCode}
-      header={data.header}
-      footer={data.footer}
-    >
+    <LayoutRegional languageCode={languageCode} header={data.header} footer={data.footer}>
       <SEO title={title} />
       <HeroSmall image={image.value ? image.value[0] : null} />
       <section className="section">
         <div className="container">
-          {item.pageSlug !== '' && (
+          {item.pageSlug !== "" &&
             <h2
               className="text-crimson"
               data-kontent-item-id={id}
               data-kontent-element-codename={codename}
             >
-              {item.category.toLowerCase() === 'regional'
-                ? item.name
-                : item.category}
+              {item.category.toLowerCase() === 'regional' ? item.name : item.category}
             </h2>
-          )}
+          }
           <PaginationDefault path={path} languageCode={languageCode} />
           <div className="grid-1 grid-md-12 mt-2 gap-1 gap-md-2">
             {sidebarLinks && (
@@ -80,7 +71,9 @@ export default function PageTemplateRegional({
 
 export const pageQuery = graphql`
   query RegionalPageQuery($languageCode: String, $pageID: String) {
-    header: kontentItemHeader(system: { language: { eq: $languageCode } }) {
+    header: kontentItemHeader (
+      system: {language: {eq: $languageCode}}
+    )  {
       system {
         id
         codename
@@ -161,7 +154,9 @@ export const pageQuery = graphql`
         }
       }
     }
-    footer: kontentItemFooter(system: { language: { eq: $languageCode } }) {
+    footer: kontentItemFooter (
+        system: {language: {eq: $languageCode}}
+      ) {
       system {
         id
         codename

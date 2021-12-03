@@ -24,7 +24,6 @@ export default function PageTemplate({ pageContext: { pageID, item }, data }) {
   const { id, codename } = data.page.system
   const sidebarLinks = prepareSidebarLinks(menu)
 
-  console.log('page ID is: ', pageID)
   return (
     <Layout>
       <SEO title={title} />
