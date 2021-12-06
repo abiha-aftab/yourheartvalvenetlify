@@ -58,7 +58,7 @@ exports.createPages = async ({ actions, graphql }) => {
       category: category,
       categorySlug: categorySlug,
     }
-
+    console.log(path)
     createPage({
       path: path,
       component:
@@ -69,7 +69,21 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 
     if (process.env.ENVIRONMENT === 'development') {
-      const webspotlightPath = `preview/${language}/${pageSlug}`
+      if (title === 'Home') {
+        const homePath = `preview/${language}//`
+        console.log('homeeeee', homePath)
+        createPage({
+          path: homePath,
+          component:
+            language !== 'default'
+              ? require.resolve(`./src/templates/page-template-regional.js`)
+              : require.resolve(`./src/templates/page-template.js`),
+          context: { languageCode: language, pageID, item },
+        })
+      }
+
+      const webspotlightPath = `/preview/${language}/${pageSlug}`
+
       createPage({
         path: webspotlightPath,
         component:
