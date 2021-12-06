@@ -38,10 +38,7 @@ exports.createPages = async ({ actions, graphql }) => {
     } = page
     let category = page.elements.topics.value
     category = category.length > 0 ? category[0].name : ''
-    console.log(slug)
-    let pageSlug = slug === 'Home' ? '/' : slug
-    pageSlug = pageSlug.replace(/^\/+|\/+$/g, '').toLowerCase()
-    console.log('poage', pageSlug)
+    const pageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
     const categorySlug = category
       .replace(/\s+/g, '-')
       .replace(/^\/+|\/+$/g, '')
@@ -61,6 +58,7 @@ exports.createPages = async ({ actions, graphql }) => {
       category: category,
       categorySlug: categorySlug,
     }
+
     createPage({
       path: path,
       component:
@@ -71,9 +69,7 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 
     if (process.env.ENVIRONMENT === 'development') {
-      const webPageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
-      const webspotlightPath = `/preview/${language}/${webPageSlug}`
-
+      const webspotlightPath = `preview/${language}/${pageSlug}`
       createPage({
         path: webspotlightPath,
         component:
