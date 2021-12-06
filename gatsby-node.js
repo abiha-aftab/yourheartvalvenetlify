@@ -69,11 +69,11 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 
     if (process.env.ENVIRONMENT === 'development') {
-      if (title === 'Home') {
-        const homePath = `preview/${language}//`
-        console.log('homeeeee', homePath)
+      {
+        const webspotlightPath = `/preview/${language}/${slug}`
+        console.log('web', webspotlightPath)
         createPage({
-          path: homePath,
+          path: webspotlightPath,
           component:
             language !== 'default'
               ? require.resolve(`./src/templates/page-template-regional.js`)
@@ -81,17 +81,6 @@ exports.createPages = async ({ actions, graphql }) => {
           context: { languageCode: language, pageID, item },
         })
       }
-
-      const webspotlightPath = `/preview/${language}/${pageSlug}`
-
-      createPage({
-        path: webspotlightPath,
-        component:
-          language !== 'default'
-            ? require.resolve(`./src/templates/page-template-regional.js`)
-            : require.resolve(`./src/templates/page-template.js`),
-        context: { languageCode: language, pageID, item },
-      })
     }
   })
 }
