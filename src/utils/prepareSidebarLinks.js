@@ -33,7 +33,6 @@ const prepareLinks = (baseURL, links, sidebarLinks) => {
     let slug = link.elements.url
       ? link.elements.url.value
       : link.elements.slug.value
-    slug = slug === 'Home' ? '' : slug
     let url = slug
       ? slug.indexOf('https') !== -1
         ? slug
