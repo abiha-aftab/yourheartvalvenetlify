@@ -58,7 +58,7 @@ exports.createPages = async ({ actions, graphql }) => {
       category: category,
       categorySlug: categorySlug,
     }
-    console.log(path)
+
     createPage({
       path: path,
       component:
@@ -67,7 +67,5 @@ exports.createPages = async ({ actions, graphql }) => {
           : require.resolve(`./src/templates/page-template.js`),
       context: { languageCode: language, pageID, item },
     })
-
- 
   })
 }
