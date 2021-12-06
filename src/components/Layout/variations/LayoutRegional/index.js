@@ -11,7 +11,7 @@ const LayoutRegional = ({ children, languageCode, header, footer }) => {
   useEffect(() => {
     if (!languages.length) {
       fetch(
-        `${process.env.GATSBY_DELIVERY_API_URL}${process.env.GATSBY_PROJECT_ID}/languages`
+        `${process.env.GATSBY_DELIVERY_API_URL}${process.env.GATSBY_KONTENT_PROJECT_ID}/languages`
       )
         .then((response) => response.json())
         .then((results) => {
