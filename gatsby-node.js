@@ -70,7 +70,8 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 
     if (process.env.ENVIRONMENT === 'development') {
-      const webspotlightPath = `preview/${language}/${pageSlug}`
+      const websptlightPageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
+      const webspotlightPath = `preview/${language}/${websptlightPageSlug}`
       createPage({
         path: webspotlightPath,
         component:
