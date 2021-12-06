@@ -39,7 +39,12 @@ exports.createPages = async ({ actions, graphql }) => {
     let category = page.elements.topics.value
     category = category.length > 0 ? category[0].name : ''
     const pageSlug =
-      slug === 'Home' ? '' : slug.replace(/^\/+|\/+$/g, '').toLowerCase()
+      slug === 'Home'
+        ? ''
+        : slug
+            .replace(/^\/+|\/+$/g, '')
+            .toLowerCase()
+            .trim()
     const categorySlug = category
       .replace(/\s+/g, '-')
       .replace(/^\/+|\/+$/g, '')
@@ -70,7 +75,10 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 
     if (process.env.ENVIRONMENT === 'development') {
-      const websptlightPageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
+      const websptlightPageSlug = slug
+        .replace(/^\/+|\/+$/g, '')
+        .toLowerCase()
+        .trim()
       const webspotlightPath = `preview/${language}/${websptlightPageSlug}`
       createPage({
         path: webspotlightPath,
