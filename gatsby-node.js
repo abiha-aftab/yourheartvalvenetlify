@@ -78,7 +78,7 @@ exports.createPages = async ({ actions, graphql }) => {
           context: { languageCode: language, pageID, item },
         })
       } else {
-        const webspotlightPath = `/preview/${language}/${pageID}`
+        const webspotlightPath = `/preview/${language}/${pageSlug}`
 
         createPage({
           path: webspotlightPath,
