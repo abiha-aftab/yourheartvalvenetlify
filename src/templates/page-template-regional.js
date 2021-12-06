@@ -24,6 +24,9 @@ export default function PageTemplateRegional({
     dropdown: { value: dropdown },
     title: { value: title },
   } = data.page.elements
+  if (title === 'Home') {
+    console.log(data.page)
+  }
   const { id, codename } = data.page.system
   const sidebarLinks = prepareSidebarLinks(menu, languageCode)
   return (
