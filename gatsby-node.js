@@ -69,18 +69,16 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 
     if (process.env.ENVIRONMENT === 'development') {
-      {
-        const webspotlightPath = `/preview/${language}/${slug}`
-        console.log('web', webspotlightPath)
-        createPage({
-          path: webspotlightPath,
-          component:
-            language !== 'default'
-              ? require.resolve(`./src/templates/page-template-regional.js`)
-              : require.resolve(`./src/templates/page-template.js`),
-          context: { languageCode: language, pageID, item },
-        })
-      }
+      const webspotlightPath = `/preview/${language}/${pageID}`
+
+      createPage({
+        path: webspotlightPath,
+        component:
+          language !== 'default'
+            ? require.resolve(`./src/templates/page-template-regional.js`)
+            : require.resolve(`./src/templates/page-template.js`),
+        context: { languageCode: language, pageID, item },
+      })
     }
   })
 }
