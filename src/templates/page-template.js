@@ -9,10 +9,7 @@ import Dropdown from '../components/Dropdown/variants/DropdownDefault'
 import SEO from '../components/SEO'
 import Layout from '../components/Layout/variations/LayoutDefault'
 
-export default function PageTemplate({
-  pageContext: { languageCode, pageID, item },
-  data,
-}) {
+export default function PageTemplate({ pageContext: { pageID, item }, data }) {
   const path = item.url.replace(/^\/+|\/+$/g, '')
   const {
     body,
@@ -72,10 +69,8 @@ export default function PageTemplate({
 }
 
 export const pageQuery = graphql`
-  query PageQuery($languageCode: String, $pageID: String) {
-    page: kontentItemPageTemplate(
-      system: { id: { eq: $pageID }, language: { eq: $languageCode } }
-    ) {
+  query PageQuery($pageID: String) {
+    page: kontentItemPageTemplate(system: { id: { eq: $pageID } }) {
       system {
         id
         codename
