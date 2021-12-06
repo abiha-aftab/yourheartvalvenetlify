@@ -81,10 +81,6 @@ exports.createPages = async ({ actions, graphql }) => {
         .toLowerCase()
         .trim()
       const webspotlightPath = `preview/${language}/${websptlightPageSlug}`
-      console.log('live', path)
-      console.log('prev', webspotlightPath)
-      console.log('pageId', pageID)
-      console.log('lang', language)
       createPage({
         path: webspotlightPath,
         component:
