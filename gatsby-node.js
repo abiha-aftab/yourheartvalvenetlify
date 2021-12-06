@@ -38,7 +38,8 @@ exports.createPages = async ({ actions, graphql }) => {
     } = page
     let category = page.elements.topics.value
     category = category.length > 0 ? category[0].name : ''
-    const pageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
+    const pageSlug =
+      slug === 'Home' ? '' : slug.replace(/^\/+|\/+$/g, '').toLowerCase()
     const categorySlug = category
       .replace(/\s+/g, '-')
       .replace(/^\/+|\/+$/g, '')
