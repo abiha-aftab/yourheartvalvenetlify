@@ -38,7 +38,10 @@ exports.createPages = async ({ actions, graphql }) => {
     } = page
     let category = page.elements.topics.value
     category = category.length > 0 ? category[0].name : ''
-    const pageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
+    console.log(slug)
+    let pageSlug = slug === 'Home' ? '/' : slug
+    pageSlug = pageSlug.replace(/^\/+|\/+$/g, '').toLowerCase()
+    console.log('poage', pageSlug)
     const categorySlug = category
       .replace(/\s+/g, '-')
       .replace(/^\/+|\/+$/g, '')
@@ -68,27 +71,17 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 
     if (process.env.ENVIRONMENT === 'development') {
-      if (title === 'Home') {
-        createPage({
-          path: `/preview/${language}//`,
-          component:
-            language !== 'default'
-              ? require.resolve(`./src/templates/page-template-regional.js`)
-              : require.resolve(`./src/templates/page-template.js`),
-          context: { languageCode: language, pageID, item },
-        })
-      } else {
-        const webspotlightPath = `/preview/${language}/${pageSlug}`
+      const webPageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
+      const webspotlightPath = `/preview/${language}/${webPageSlug}`
 
-        createPage({
-          path: webspotlightPath,
-          component:
-            language !== 'default'
-              ? require.resolve(`./src/templates/page-template-regional.js`)
-              : require.resolve(`./src/templates/page-template.js`),
-          context: { languageCode: language, pageID, item },
-        })
-      }
+      createPage({
+        path: webspotlightPath,
+        component:
+          language !== 'default'
+            ? require.resolve(`./src/templates/page-template-regional.js`)
+            : require.resolve(`./src/templates/page-template.js`),
+        context: { languageCode: language, pageID, item },
+      })
     }
   })
 }
