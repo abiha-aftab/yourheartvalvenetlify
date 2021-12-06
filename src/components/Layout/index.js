@@ -68,7 +68,9 @@ const Layout = ({ children }) => {
     <div
       className="layout"
       data-kontent-project-id={process.env.GATSBY_PROJECT_ID}
-      data-kontent-language-codename={process.env.GATSBY_LANGUAGE_CODENAMES}
+      data-kontent-language-codename={
+        process.env.GATSBY_KONTENT_LANGUAGE_CODENAMES
+      }
     >
       <NavbarDefault navLogo={navLogo} navLinks={navLinks} />
       {children}
