@@ -25,11 +25,7 @@ module.exports = {
           process.env.KONTENT_PREVIEW_KEY_ENABLED.toLowerCase() === 'true'
             ? process.env.KONTENT_PREVIEW_KEY
             : undefined,
-        languageCodenames: [
-          process.env.GATSBY_LANGUAGE_CODENAMES.split(',').map((lang) =>
-            lang.trim()
-          ),
-        ],
+        languageCodenames: ['default', 'eu'],
       },
     },
     `gatsby-plugin-sass`,
