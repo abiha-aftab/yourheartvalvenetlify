@@ -104,7 +104,7 @@ export const pageQuery = graphql`
       }
     }
     page: kontentItemPageTemplate(
-      system: { id: { eq: $pageID }, language: { eq: "eu" } }
+      system: { id: { eq: $pageID }, language: { eq: $languageCode } }
     ) {
       system {
         id
