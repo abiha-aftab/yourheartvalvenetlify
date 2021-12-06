@@ -1,9 +1,9 @@
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
   const { data } = await graphql(`
-		query {
+    query {
       pages: allKontentItemPageTemplate(
-        filter: {system: {language: {in: ["default","eu"]}}}
+        filter: { system: { language: { in: ["default", "eu"] } } }
       ) {
         nodes {
           system {
@@ -25,41 +25,59 @@ exports.createPages = async ({ actions, graphql }) => {
           }
         }
       }
-		}
-	`);
+    }
+  `)
 
-  data.pages.nodes.forEach(page => {
+  data.pages.nodes.forEach((page) => {
     const {
       system: { id: pageID, language },
       elements: {
         title: { value: title },
         slug: { value: slug },
-      }
-    } = page;
+      },
+    } = page
     let category = page.elements.topics.value
-    category = category.length > 0 ? category[0].name : ""
+    category = category.length > 0 ? category[0].name : ''
     const pageSlug = slug.replace(/^\/+|\/+$/g, '').toLowerCase()
-    const categorySlug = category.replace(/\s+/g, '-').replace(/^\/+|\/+$/g, '').toLowerCase()
-    const regionalPath = language !== "default" ? `/${language}` : ""
-    const path = categorySlug === pageSlug || categorySlug === "regional" || categorySlug === ""
-      ? `${regionalPath}/${pageSlug}`
-      : `${regionalPath}/${categorySlug}/${pageSlug}`;
+    const categorySlug = category
+      .replace(/\s+/g, '-')
+      .replace(/^\/+|\/+$/g, '')
+      .toLowerCase()
+    const regionalPath = language !== 'default' ? `/${language}` : ''
+    const path =
+      categorySlug === pageSlug ||
+      categorySlug === 'regional' ||
+      categorySlug === ''
+        ? `${regionalPath}/${pageSlug}`
+        : `${regionalPath}/${categorySlug}/${pageSlug}`
 
     const item = {
       url: path,
       pageSlug: pageSlug,
       name: title,
       category: category,
-      categorySlug: categorySlug
+      categorySlug: categorySlug,
     }
 
     createPage({
       path: path,
-      component: language !== "default"
-        ? require.resolve(`./src/templates/page-template-regional.js`)
-        : require.resolve(`./src/templates/page-template.js`),
+      component:
+        language !== 'default'
+          ? require.resolve(`./src/templates/page-template-regional.js`)
+          : require.resolve(`./src/templates/page-template.js`),
       context: { languageCode: language, pageID, item },
-    });
+    })
 
-  });
+    if (process.env.ENVIRONMENT === 'development') {
+      const webspotlightPath = `preview/${language}/${pageSlug}`
+      createPage({
+        path: webspotlightPath,
+        component:
+          language !== 'default'
+            ? require.resolve(`./src/templates/page-template-regional.js`)
+            : require.resolve(`./src/templates/page-template.js`),
+        context: { languageCode: language, pageID, item },
+      })
+    }
+  })
 }
