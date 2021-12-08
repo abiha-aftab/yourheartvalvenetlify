@@ -16,15 +16,7 @@ module.exports = {
     {
       resolve: `@kentico/gatsby-source-kontent`,
       options: {
-        projectId: process.env.GATSBY_PROJECT_ID, // if false used authorization key for secured API
-        usePreviewUrl:
-          process.env.KONTENT_PREVIEW_KEY_ENABLED &&
-          process.env.KONTENT_PREVIEW_KEY_ENABLED.toLowerCase() === 'true',
-        authorizationKey:
-          process.env.KONTENT_PREVIEW_KEY_ENABLED &&
-          process.env.KONTENT_PREVIEW_KEY_ENABLED.toLowerCase() === 'true'
-            ? process.env.KONTENT_PREVIEW_KEY
-            : undefined,
+        projectId: process.env.GATSBY_KONTENT_PROJECT_ID,
         languageCodenames: process.env.GATSBY_KONTENT_LANGUAGE_CODENAMES.split(
           ','
         ).map((lang) => lang.trim()),

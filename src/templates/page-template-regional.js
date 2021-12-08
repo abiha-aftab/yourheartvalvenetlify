@@ -50,7 +50,12 @@ export default function PageTemplateRegional({
                 : item.category}
             </h2>
           )}
-          <PaginationDefault path={path} languageCode={languageCode} />
+          <PaginationDefault
+            path={path}
+            languageCode={languageCode}
+            pageId={id}
+            pageCodename={codename}
+          />
           <div className="grid-1 grid-md-12 mt-2 gap-1 gap-md-2">
             {sidebarLinks && (
               <div className="col-md-4">
