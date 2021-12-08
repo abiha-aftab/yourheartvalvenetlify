@@ -22,7 +22,7 @@ const PaginationDefault = ({
   })
 
   return (
-    <ul className="paginationDefault" data-kontent-item-id={pageId}>
+    <ul className="paginationDefault">
       {links.length > 1 &&
         links.map((link, index) => {
           const { text, url } = link
@@ -42,6 +42,7 @@ const PaginationDefault = ({
               <li
                 className="paginationDefault__item"
                 key={index}
+                data-kontent-item-id={pageId}
                 data-kontent-element-codename={pageCodename}
               >
                 <Link to={url} className="paginationDefault__link">
