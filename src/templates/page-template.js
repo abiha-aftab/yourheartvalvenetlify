@@ -37,7 +37,7 @@ export default function PageTemplate({ pageContext: { pageID, item }, data }) {
           >
             {item.category}
           </h2>
-          <PaginationDefault path={path} />
+          <PaginationDefault path={path} pageId={id} pageCodename={codename} />
           <div className="grid-1 grid-md-12 mt-2 gap-1 gap-md-2">
             {sidebarLinks && (
               <div className="col-md-4">
